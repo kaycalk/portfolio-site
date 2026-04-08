@@ -1,0 +1,482 @@
+/* 
+  © 2026 Kayla Calk
+  Visual portfolio site — Image & Motion
+  All rights reserved.
+
+  All content, including but not limited to photographs, videos, 
+  text, design, and code within this website, is the intellectual property 
+  of the author and may not be copied, reproduced, modified, distributed, or used 
+  to create derivative works without prior written permission.
+*/
+
+/* =========================
+   THEMES
+========================= */
+body.dark {
+  --bg: #111111;
+  --bg-soft: #1a1a1a;
+  --bg-header: #1c1c1c;
+  --text: #e8e8e8;
+  --text-soft: #a5a5a5;
+  --text-faint: #6f6f6f;
+  --line: #2a2a2a;
+}
+
+body.light {
+  --bg: #f5f5f4;
+  --bg-soft: #ececeb;
+  --bg-header: #e2e0dc;
+  --text: #1c1c1c;
+  --text-soft: #5f5f5f;
+  --text-faint: #9a9a9a;
+  --line: #d6d4d0;
+}
+
+/* RESET */
+* {
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body {
+  font-family:'Space Grotesk', sans-serif;
+  background:var(--bg);
+  color:var(--text);
+}
+
+/* HEADER */
+.header-band {
+  background:var(--bg-header);
+  border-bottom:1px solid var(--line);
+}
+
+.header-container {
+  padding:42px 20px;
+  position:relative;
+}
+
+.site-title {
+  text-align:center;
+  font-size:2rem;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+}
+
+.tagline {
+  text-align:center;
+  margin-top:10px;
+  font-size:0.84rem;
+  letter-spacing:0.06em;
+  color:var(--text-soft);
+}
+
+
+/* TOGGLE */
+#theme-toggle {
+  position:absolute;
+  top:12px;
+  right:24px;
+
+  font-size:0.62rem;
+  letter-spacing:0.12em;
+  text-transform:uppercase;
+
+  background:none;
+  border:1px solid var(--line);
+  padding:5px 8px;
+  cursor:pointer;
+  color:var(--text-soft);
+}
+
+body.light #theme-toggle:hover {
+  background:#d6d4d0;
+}
+
+body.dark #theme-toggle:hover {
+  background:#2a2a2a;
+}
+
+/* WORK */
+.work-area {
+  padding:40px 24px;
+}
+
+.page-intro {
+  text-align:center;
+  margin-bottom:60px;
+}
+
+/* PAGE INTRO - WORK LABEL */
+.top-label {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.2rem;       /* slightly bigger than subsection titles */
+  font-weight: 500;        /* bold */
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-soft);
+}
+
+.subtitle {
+  margin-top:10px;
+}
+
+/* SECTIONS */
+.sections-wrapper {
+  display:flex;
+  flex-direction:column;
+  gap:36px;
+}
+
+.section-container {
+  width:90%;
+  max-width:1200px;
+  margin:auto;
+  padding:36px 24px;
+  background:var(--bg-soft);
+  border-radius:8px;
+  text-align:center;
+}
+
+/* SUBSECTION TITLES */
+.section-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1rem;         /* slightly smaller than Work */
+  font-weight: 500;         /* medium weight, less bold than Work */
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--text);      /* matches theme */
+  margin-bottom: 6px;
+}
+
+.section-desc {
+  font-size:0.82rem; /* restored size */
+  color:var(--text-soft); /* restored color */
+  margin-bottom:24px;
+}
+
+
+/* HOMEPAGE GRID (ALBUMS) */
+.grid {
+  display:grid;
+  grid-template-columns: repeat(2, 1fr); /* ✅ always 2 columns */
+  gap:15px;
+  justify-items: center;
+}
+
+.project {
+  position:relative;
+  aspect-ratio:1.4;
+  overflow:hidden;
+  cursor:pointer;
+}
+
+.project img {
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  transition:0.6s ease;
+}
+
+/* HOVER */
+.overlay {
+  position:absolute;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  font-size:0.75rem;
+  letter-spacing:0.14em;
+  text-transform:uppercase;
+
+  background:rgba(0,0,0,0.25);
+  opacity:0;
+  transition:0.3s ease;
+}
+
+.project:hover img {
+  transform:scale(1.04);
+  filter:brightness(0.85);
+}
+
+.project:hover .overlay {
+  opacity:1;
+}
+
+/* LIGHT MODE FIX FOR HOVER OVERLAY */
+body.light .project:hover img {
+  transform: scale(1.04);
+  filter: brightness(0.85);
+}
+
+body.light .overlay {
+  background: rgba(0,0,0,0.35); /* match dark mode overlay */
+  color: #e8e8e8; /* readable text */
+}
+
+/* LIGHTBOX */
+.lightbox {
+  position:fixed;
+  inset:0;
+  background:rgba(12,12,12,0.92);
+  backdrop-filter: blur(8px); /* subtle background blur */
+  z-index:999;
+  display:flex;
+  justify-content:flex-start;  /* ✅ allow top flow */
+  align-items:center;
+  flex-direction:column;
+  overflow-y:auto;
+  padding-top:100px; /* ✅ more breathing room so title never clips */
+}
+
+/* CENTER IMAGE IN IMMERSIVE MODE (DESKTOP) */
+.lightbox.image-mode {
+  justify-content: center;
+  padding-top: 0;
+}
+
+.lightbox.hidden {
+  display:none;
+}
+
+/* GALLERY */
+.gallery-title {
+  font-size:1.2rem; /* slightly bigger */
+  letter-spacing:0.22em;
+  text-transform:uppercase;
+  margin-bottom:28px;
+  color: #dcdcdc; /* consistent across themes */
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* ✅ desktop: 3 columns */
+  gap: 10px;
+  width: 90%;
+  max-width: 1000px;
+  padding-bottom: 80px;
+}
+
+/* TABLET */
+@media (max-width: 900px) {
+  .gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* MOBILE SPACING REFINEMENT */
+@media (max-width: 600px) {
+
+  /* homepage sections */
+  .section-container {
+    width: 97%; 
+    padding:24px 16px; /* tighter */
+  }
+
+  .grid {
+    gap:16px; /* reduced spacing between albums */
+  }
+
+  /* gallery thumbnails */
+  .gallery-grid {
+    grid-template-columns: repeat(2, 1fr); /* ✅ KEEP 2 columns */
+    gap:10px; /* tighter spacing */
+    width:94%; /* slightly wider use of screen */
+  }
+
+  .work-area {
+    padding:28px 16px; /* tighter page padding */
+  }
+}
+
+/* IMAGE FADE-IN (GLOBAL POLISH) */
+img {
+  opacity: 0;
+  transition: opacity 1.0s ease;
+}
+
+img.loaded {
+  opacity: 1;
+}
+
+/* GALLERY IMAGE HOVER */
+.gallery-grid img {
+  width: 100%;
+  height: auto;              /* ✅ prevent stretch/overlap */
+  object-fit: cover;
+  aspect-ratio: 1.;
+  display: block;            /* ✅ prevents inline spacing bugs */
+  cursor: zoom-in; /* subtle zoom cursor */;
+  transition: transform 0.4s ease, opacity 0.3s ease;
+}
+
+
+.gallery-grid img:hover {
+  transform: scale(1.03);   /* subtle zoom */
+  opacity: 0.95;
+}
+
+/* IMAGE VIEW */
+.lightbox-img {
+  max-width:86%;
+  max-height:85vh;
+  transition:opacity 0.6s ease;
+  display:block;
+  margin:auto;
+  cursor:pointer;
+  width: auto;
+  height: auto;
+}
+
+/* CONTROLS */
+.close {
+  position:fixed;
+  top:30px;
+  right:40px;
+  font-size:24px;
+  cursor:pointer;
+  color:#dcdcdc; /* consistent light/dark */
+}
+
+.nav {
+  position:absolute;  /* ✅ changed from fixed */
+  top:50%;
+  transform:translateY(-50%);
+  font-size:34px;
+  cursor:pointer;
+  color:#dcdcdc; /* consistent light/dark */
+  z-index:1000;
+}
+
+.prev { left:5%; }
+.next { right:5%; }
+
+.counter {
+  position:fixed;
+  bottom:20px;
+  color:#dcdcdc; /* consistent light/dark */
+}
+
+/* LOCK SCROLL */
+body.no-scroll {
+  overflow:hidden;
+}
+
+/* MOBILE IMMERSIVE CONTROLS */
+@media (max-width: 900px) {
+
+  .nav {
+    position: fixed;
+    top: auto;
+    bottom: 15px;
+    transform: none;
+    font-size: 28px;
+  }
+
+  .lightbox-img {
+    max-width: 95%;
+    max-height: 80%;
+  }
+
+  .prev {
+    left: 10%;
+  }
+
+  .next {
+    right: 10%;
+  }
+
+  .counter {
+    bottom: 18px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
+
+/* MOBILE LANDSCAPE OPTIMIZATION */
+@media (max-width: 900px) and (orientation: landscape) {
+
+  .lightbox {
+    padding-top: 10px; /* reduce vertical waste */
+  }
+
+  .lightbox-img {
+    max-height: 75vh; /* prevent cropping */
+  }
+
+  .nav {
+    position: fixed;
+    top: auto;
+    bottom: 15px;
+    transform: none;
+    font-size: 28px;
+  }
+  }
+
+  .counter {
+    bottom: 12px;
+  }
+
+  /* SCROLL TO TOP BUTTON */
+#scrollTopBtn {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 1000;
+
+  font-size: 18px;
+  padding: 10px 12px;
+  border-radius: 50%;
+
+  background: rgba(0,0,0,0.5);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+#scrollTopBtn.show {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+#scrollTopBtn:hover {
+  transform: translateY(-3px);
+}
+
+/* =========================
+   FOOTER
+========================= */
+.site-footer {
+  margin-top: 80px;
+  padding: 40px 20px;
+  text-align: center;
+  border-top: 1px solid var(--line);
+  background: var(--bg);
+}
+
+.footer-inner p {
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  color: var(--text-soft);
+}
+
+.footer-sub {
+  margin-top: 6px;
+  font-size: 0.65rem;
+  color: var(--text-faint);
+}
+
+/* EMPTY SECTION PLACEHOLDER */
+.coming-soon {
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: lowercase;
+  color: var(--text-faint);
+  margin-bottom: 20px;
+}
